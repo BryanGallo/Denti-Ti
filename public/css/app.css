@@ -11296,6 +11296,10 @@ body a {
   font-weight: bold;
 }
 
+trix-editor {
+  min-height: 200px;
+}
+
 .bg-primary .navbar-brand {
   color: #fff;
   font-size: var(--font-size);

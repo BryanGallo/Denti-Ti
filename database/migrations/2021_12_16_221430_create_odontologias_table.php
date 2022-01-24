@@ -13,6 +13,13 @@ class CreateOdontologiasTable extends Migration
      */
     public function up()
     {
+        //tabla categorias
+        Schema::create('categorias', function (Blueprint $table) {
+            $table->id('id');
+            $table->string('categoria');
+            $table->timestamps();
+        });
+
         Schema::create('odontologias', function (Blueprint $table) {
             $table->id();
             $table->String('nombre');
@@ -21,6 +28,10 @@ class CreateOdontologiasTable extends Migration
             $table->String('correo');
             $table->String('direc');
             $table->String('celular');
+            $table->String('info');
+            $table->String('imagen');
+            $table->foreignId('user_id')->references('id')-> on('users')->commet('El usuario crea al paciente') ;
+            $table->foreignId('categoria_id')->references('id')-> on('categorias')->commet('Categoria del paciente') ;
             $table->timestamps();
         });
     }
@@ -33,5 +44,6 @@ class CreateOdontologiasTable extends Migration
     public function down()
     {
         Schema::dropIfExists('odontologias');
+        Schema::dropIfExists('categorias');
     }
 }
