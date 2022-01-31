@@ -42,4 +42,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    //relacion de 1:n Usuario a multiples pacientes
+    //un usuario puede registrar multiples pacientes
+    public function userPacientes()
+    {
+        return $this->hasMany(Odontologia::class);
+    }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use App\Models\Odontologia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use Database\Seeders\CategoriasSeeder;
 
 class OdontologiaController extends Controller
 {
@@ -21,8 +24,9 @@ class OdontologiaController extends Controller
      */
     public function index()
     {
+        $userPacientes = Auth::user()->userPacientes;
         //
-        return view('auth.odontologia.index');
+        return view('auth.odontologia.index')->with('userPacientes',$userPacientes);
     }
 
     /**
@@ -33,7 +37,9 @@ class OdontologiaController extends Controller
     public function create()
     {
         //consulta categorias
-        $categorias=DB::table('categorias')->get()->pluck('categoria','id');
+        // $categorias=DB::table('categorias')->get()->pluck('categoria','id');
+        //traer categoria con modelo
+        $categorias=Categoria::all(['id','categoria']);
         return view('auth.odontologia.create')->with('categorias',$categorias);
     }
 
@@ -62,6 +68,11 @@ class OdontologiaController extends Controller
             // 'imagen'=>'required|imagen',
         ]);
         $ruta_imagen=($request['imagen']->store('upload-pacientes','public'));
+
+        //Redimensionar la imagen
+        //$img=Image::make(public_path("storage/{$ruta_imagen}"))->fit(1000,50);
+       //guaradr en el disco duro del servidor
+        // $img->save();
 
         DB::table('odontologias')-> insert([
             'nombre' =>$data['nombre'],

@@ -102,9 +102,9 @@
             <label for="categoria">Categoria del paciente</label>
             <select class="form-control @error('categoria') is-invalid @enderror" name="categoria" id="categoria">
                 <option value="" disabled selected>Seleccione la Categoria</option>
-                @foreach ($categorias as $id => $categoria)
-                    <option value={{ $id }} {{ old('categoria') == $id ? 'selected' : '' }}>
-                        {{ $categoria }}</option>
+                @foreach ($categorias as  $categoria)
+                    <option value={{ $categoria->id}} {{ old('categoria') == $categoria->id ? 'selected' : '' }}>
+                        {{ $categoria->categoria }}</option>
                 @endforeach
             </select>
             @error('categoria')

@@ -30,33 +30,28 @@
                         <th>Nombre Apellido</th>
                         <th>Edad</th>
                         <th>Telefono</th>
+                        <th>Categoria</th>
                         <th>Ver</th>
                         <th>Editar Historia Clinica</th>
                         <th>Eliminar Historia Clinica</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($userPacientes as $userPaciente )
                     <tr>
-                        <td>1</td>
-                        <td>Bryan Gallo</td>
-                        <td>26</td>
-                        <td>0995607826</td>
+                        <td>{{$userPaciente->id}}</td>
+                        <td>{{$userPaciente->nombre}} {{$userPaciente->apellido}}</td>
+                        <td>{{$userPaciente->cedula}}</td>
+                        <td>{{$userPaciente->celular}}</td>
+                        <td>{{$userPaciente->categoria_id}}</td>
                         <td><button class='btn btn-success' data-toggle="modal" data-target="#actualizar">Ver</button></td>
                         <td><button class='btn btn-primary' data-toggle="modal" data-target="#actualizar">/</button></td>
                         <td><button class='btn btn-danger'>X</button></td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Alberto Gallo</td>
-                        <td>26</td>
-                        <td>0995607826</td>
-                        <td><button class='btn btn-success' data-toggle="modal" data-target="#actualizar">Ver</button></td>
-                        <td><button class='btn btn-primary' data-toggle="modal" data-target="#actualizar">/</button></td>
-                        <td><button class='btn btn-danger'>X</button></td>
-                    </tr>
-
+                    @endforeach
                 </tbody>
             </table>
+            {{-- {{$userPacientes}} --}}
         </div>
     </body>
 
