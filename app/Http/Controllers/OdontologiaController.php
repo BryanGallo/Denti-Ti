@@ -16,6 +16,7 @@ class OdontologiaController extends Controller
     public function __construct()//definiendo constructor
     {
         $this->middleware('auth');//verifica la autentificaci[on]
+        // $this->middleware('auth',['except'=>'show']);
     }
     /**
      * Display a listing of the resource.
@@ -26,7 +27,7 @@ class OdontologiaController extends Controller
     {
         $userPacientes = Auth::user()->userPacientes;
         //
-        return view('auth.odontologia.index')->with('userPacientes',$userPacientes);
+        return view('odontologias.index')->with('userPacientes',$userPacientes);
     }
 
     /**
@@ -40,7 +41,7 @@ class OdontologiaController extends Controller
         // $categorias=DB::table('categorias')->get()->pluck('categoria','id');
         //traer categoria con modelo
         $categorias=Categoria::all(['id','categoria']);
-        return view('auth.odontologia.create')->with('categorias',$categorias);
+        return view('odontologias.create')->with('categorias',$categorias);
     }
 
     /**
@@ -74,20 +75,34 @@ class OdontologiaController extends Controller
        //guaradr en el disco duro del servidor
         // $img->save();
 
-        DB::table('odontologias')-> insert([
+        // DB::table('odontologias')-> insert([
+        //     'nombre' =>$data['nombre'],
+        //     'apellido' =>$data['apellido'],
+        //     'cedula' =>$data['cedula'],
+        //     'correo' =>$data['correo'],
+        //     'direc' =>$data['direc'],
+        //     'celular' =>$data['celular'],
+        //     'info' =>$data['categoria'],
+        //     'imagen' =>$ruta_imagen,
+        //     // 'imagen' =>$data['imagen'],
+        //     // 'user_id' =>$data['user_id'],
+        //     'user_id' =>Auth::user()->id,
+        //     'categoria_id' =>$data['categoria'],
+        // ]);
+
+        //Almacenar BBD
+        Auth::user()->userPacientes()->create([
             'nombre' =>$data['nombre'],
             'apellido' =>$data['apellido'],
             'cedula' =>$data['cedula'],
             'correo' =>$data['correo'],
             'direc' =>$data['direc'],
             'celular' =>$data['celular'],
-            'info' =>$data['categoria'],
+            'info' =>$data['info'],
             'imagen' =>$ruta_imagen,
-            // 'imagen' =>$data['imagen'],
-            // 'user_id' =>$data['user_id'],
-            'user_id' =>Auth::user()->id,
             'categoria_id' =>$data['categoria'],
-        ]);
+    ]);
+
         //rediccionar
         return redirect()-> action([OdontologiaController::class, 'index']);
     }
@@ -101,6 +116,7 @@ class OdontologiaController extends Controller
     public function show(Odontologia $odontologia)
     {
         //
+        return view('odontologias.show')->with('odontologia',$odontologia);
     }
 
     /**
@@ -112,6 +128,9 @@ class OdontologiaController extends Controller
     public function edit(Odontologia $odontologia)
     {
         //
+        $categorias=Categoria::all(['id','categoria']);
+        return view('odontologias.edit')->with('categorias',$categorias)
+                                        ->with('odontologia',$odontologia);;
     }
 
     /**
@@ -123,7 +142,40 @@ class OdontologiaController extends Controller
      */
     public function update(Request $request, Odontologia $odontologia)
     {
-        //
+        //para que primero pase por el policy
+        $this->authorize('update',$odontologia);
+
+
+        $data=request()-> validate([
+            'nombre'=>'required|min:4',
+            'apellido'=>'required|min:4',
+            'cedula'=>'required|min:6',
+            'correo'=>'required|min:6',
+            'direc'=>'required|min:6',
+            'celular'=>'required|min:6',
+            'categoria'=>'required',
+            'info'=>'required',
+        ]);
+
+        //asignando valores
+        $odontologia->nombre=$data['nombre'];
+        $odontologia->apellido=$data['apellido'];
+        $odontologia->cedula=$data['cedula'];
+        $odontologia->correo=$data['correo'];
+        $odontologia->direc=$data['direc'];
+        $odontologia->celular=$data['celular'];
+        $odontologia->categoria_id=$data['categoria'];
+        $odontologia->info=$data['info'];
+
+
+        //nueva imagen
+        if (request('imagen')) {
+            $ruta_imagen=($request['imagen']->store('upload-pacientes','public'));
+            $odontologia->imagen=$ruta_imagen;
+
+        }
+        $odontologia->save();
+        return redirect()-> action([OdontologiaController::class, 'index']);
     }
 
     /**
@@ -134,6 +186,9 @@ class OdontologiaController extends Controller
      */
     public function destroy(Odontologia $odontologia)
     {
-        //
+        //verificar el policy
+        $this->authorize('delete',$odontologia);
+        $odontologia->delete();
+        return redirect()-> action([OdontologiaController::class, 'index']);
     }
 }

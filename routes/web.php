@@ -23,7 +23,12 @@ use App\Http\Controllers\OdontologiaController;
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [OdontologiaController::class, 'index'])->name('register');
-Route::get('/odontologia', [OdontologiaController::class, 'index'])->name('odontologia.index');
-Route::get('/odontologia/create', [OdontologiaController::class, 'create'])->name('odontologia.create');
-Route::post('/odontologia/', [OdontologiaController::class, 'store'])->name('odontologia.store');
+Route::get('/odontologias', [OdontologiaController::class, 'index'])->name('odontologia.index');
+Route::get('/odontologias/create', [OdontologiaController::class, 'create'])->name('odontologia.create');
+Route::post('/odontologias/', [OdontologiaController::class, 'store'])->name('odontologia.store');
+Route::get('/odontologias/{odontologia}', [OdontologiaController::class, 'show'])->name('odontologia.show');
+Route::get('/odontologias/{odontologia}/edit', [OdontologiaController::class, 'edit'])->name('odontologia.edit');
+Route::put('/odontologias/{odontologia}', [OdontologiaController::class, 'update'])->name('odontologia.update');
+Route::delete('/odontologias/{odontologia}', [OdontologiaController::class, 'destroy'])->name('odontologia.destroy');
+
 Auth::routes();

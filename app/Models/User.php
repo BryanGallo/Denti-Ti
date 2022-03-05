@@ -48,4 +48,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Odontologia::class);
     }
+
+    //relacion usuario-perfil de uno a uno
+    public function userPerfil()
+    {
+        return $this->hasOne(Odontologia::class);
+    }
 }
