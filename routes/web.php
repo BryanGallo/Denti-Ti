@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OdontologiaController;
+use App\Http\Controllers\PerfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ use App\Http\Controllers\OdontologiaController;
 
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/', [OdontologiaController::class, 'index'])->name('register');
+Route::get('/', [OdontologiaController::class, 'index'])->name('odontologias');
 Route::get('/odontologias', [OdontologiaController::class, 'index'])->name('odontologia.index');
 Route::get('/odontologias/create', [OdontologiaController::class, 'create'])->name('odontologia.create');
 Route::post('/odontologias/', [OdontologiaController::class, 'store'])->name('odontologia.store');
@@ -32,3 +33,5 @@ Route::put('/odontologias/{odontologia}', [OdontologiaController::class, 'update
 Route::delete('/odontologias/{odontologia}', [OdontologiaController::class, 'destroy'])->name('odontologia.destroy');
 
 Auth::routes();
+//perfiles
+Route::get('/perfiles/{perfil}', [PerfilController::class,'show']) -> name('perfiles.show');

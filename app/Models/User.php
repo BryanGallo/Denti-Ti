@@ -49,9 +49,17 @@ class User extends Authenticatable
         return $this->hasMany(Odontologia::class);
     }
 
+    protected static function booted()
+    {
+        parent::booted();
+        static::created(function($user){
+            $user->userPerfil()->create();
+        });
+    }
+
     //relacion usuario-perfil de uno a uno
     public function userPerfil()
     {
-        return $this->hasOne(Odontologia::class);
+        return $this->hasOne(Perfil::class);
     }
 }

@@ -15,7 +15,7 @@ class OdontologiaController extends Controller
     //constructor
     public function __construct()//definiendo constructor
     {
-        $this->middleware('auth');//verifica la autentificaci[on]
+        $this->middleware('auth',['except'=>'show']);//verifica la autentificaci[on]
         // $this->middleware('auth',['except'=>'show']);
     }
     /**
@@ -66,7 +66,7 @@ class OdontologiaController extends Controller
             'celular'=>'required|min:6',
             'categoria'=>'required',
             'info'=>'required',
-            // 'imagen'=>'required|imagen',
+            'imagen'=>'required|image',
         ]);
         $ruta_imagen=($request['imagen']->store('upload-pacientes','public'));
 
