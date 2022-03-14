@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Crear Paciente</title>
+    <title>Editar Paciente</title>
 </head>
 
 <body>
@@ -135,12 +135,12 @@
         </div>
     </form>
     {{-- Scripts --}}
-    @section('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"
-                integrity="sha512-/1nVu72YEESEbcmhE/EvjH/RxTg62EKvYWLG3NdeZibTCuEtW5M4z3aypcvsoZw03FAopi94y04GhuqRU9p+CQ=="
-                crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-    @endsection
 </body>
 
 </html>
+@endsection
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"
+            integrity="sha512-/1nVu72YEESEbcmhE/EvjH/RxTg62EKvYWLG3NdeZibTCuEtW5M4z3aypcvsoZw03FAopi94y04GhuqRU9p+CQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 @endsection
