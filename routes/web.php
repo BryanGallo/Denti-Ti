@@ -17,13 +17,13 @@ use App\Http\Controllers\PerfilController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/', [OdontologiaController::class, 'index'])->name('odontologias');
+// Route::get('/', [OdontologiaController::class, 'index'])->name('odontologias');
 Route::get('/odontologias', [OdontologiaController::class, 'index'])->name('odontologia.index');
 Route::get('/odontologias/create', [OdontologiaController::class, 'create'])->name('odontologia.create');
 Route::post('/odontologias/', [OdontologiaController::class, 'store'])->name('odontologia.store');

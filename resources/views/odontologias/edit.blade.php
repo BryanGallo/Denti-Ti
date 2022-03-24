@@ -123,7 +123,6 @@
                     <p>Imagen Actual</p>
                     <img src="/storage/{{$odontologia->imagen}}" alt="Imagen" style="width: 300px;border-radius: 20px">
                 </div>
-                {{$odontologia}}
             @error('imagen')
                 <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
